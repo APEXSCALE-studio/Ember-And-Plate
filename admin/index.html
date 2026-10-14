@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+</head>
+
+<body>
+  
+</body>
+
+</html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Reservations Admin | Ember &amp; Plate</title>
+<style>
+:root{--char:#261b16;--cream:#f8f0e4;--sand:#efe2cd;--terra:#b34a22;--ink:#2b211b;--muted:#66554a;--wa:#1f8f4e}
+*{box-sizing:border-box}body{margin:0;font:16px/1.5 system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--cream);color:var(--ink)}
+[hidden]{display:none!important}button,select,input,textarea{font:inherit}
+.btn{border:0;border-radius:999px;padding:.55rem 1.1rem;font-weight:700;cursor:pointer;background:var(--terra);color:#fff;text-decoration:none;display:inline-block}.btn.wa{background:var(--wa)}.btn.alt{background:var(--char)}.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--char)}
+:focus-visible{outline:3px solid #e3a532;outline-offset:2px}
+#login{min-height:100vh;display:grid;place-items:center;padding:1rem}.card{background:#fff8ee;border:1px solid rgba(38,27,22,.15);border-radius:18px;padding:1.6rem;width:min(400px,100%)}
+.card h1{margin:0 0 .2rem;font-size:1.6rem;color:var(--terra)}label{display:block;font-weight:600;margin:.8rem 0 .2rem}
+input,select,textarea{width:100%;padding:.6rem .7rem;border:2px solid #c9b79f;border-radius:10px;background:#fff}.err{color:#a3241a;font-weight:600;min-height:1.4em}
+header.top{background:var(--char);color:var(--cream);padding:.8rem 1rem;display:flex;gap:.8rem;align-items:center;flex-wrap:wrap;position:sticky;top:0;z-index:5}
+header.top h1{margin:0 auto 0 0;font-size:1.15rem}header.top small{opacity:.75}
+main{max-width:1000px;margin:0 auto;padding:1rem}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:.7rem;margin-bottom:1rem}.stat{background:#fff8ee;border:1px solid rgba(38,27,22,.12);border-radius:14px;padding:.8rem}.stat b{display:block;font-size:1.7rem;line-height:1.1}.stat span{font-size:.85rem;color:var(--muted)}
+.filters{display:grid;grid-template-columns:1fr 1fr 2fr;gap:.6rem;margin-bottom:1rem}
+.res{display:grid;grid-template-columns:96px 1fr 150px;gap:1rem;background:#fff8ee;border:1px solid rgba(38,27,22,.12);border-left:6px solid #e3a532;border-radius:14px;padding:1rem;margin-bottom:.8rem}
+.res.s-confirmed{border-left-color:#1f8f4e}.res.s-completed{border-left-color:#8a8a8a}.res.s-cancelled,.res.s-no_show{border-left-color:#b3261e;opacity:.72}
+.when b{font-size:1.5rem;display:block;line-height:1.1}.when span,.when em{display:block;font-size:.88rem;color:var(--muted);font-style:normal}
+.who h3{margin:0 0 .2rem;font-size:1.15rem}.who small{background:var(--sand);border-radius:6px;padding:.05rem .4rem;font-size:.75rem}.who p{margin:.15rem 0}.meta{font-size:.8rem;color:var(--muted)}
+.links a{font-weight:600;margin-right:.7rem;color:var(--terra);text-decoration:none}.links a.wa{color:var(--wa)}.req{background:var(--sand);padding:.4rem .6rem;border-radius:8px}
+details{margin-top:.4rem}summary{cursor:pointer;font-weight:600;font-size:.9rem}details textarea{margin:.4rem 0}
+.act{display:flex;flex-direction:column;gap:.5rem}.del{background:none;border:0;color:#a3241a;cursor:pointer;text-align:left;padding:.2rem 0}
+.empty{text-align:center;color:var(--muted);padding:2.5rem 0}
+dialog{border:0;border-radius:18px;padding:1.4rem;width:min(520px,94vw);background:#fff8ee;color:var(--ink)}dialog::backdrop{background:rgba(20,13,10,.7)}
+dialog h2{margin:0 0 .3rem;font-size:1.3rem}.row2>div{min-width:0}dialog{max-height:92vh;overflow:auto}.dlg-act{position:sticky;bottom:-1.4rem;background:#fff8ee;padding:.8rem 0 1.4rem;margin-bottom:-1.4rem}.row2{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}.dlg-act{display:flex;gap:.6rem;margin-top:1rem}
+#toast{position:fixed;left:50%;bottom:1.2rem;transform:translateX(-50%);background:var(--char);color:#fff;padding:.7rem 1.2rem;border-radius:999px;font-weight:600;z-index:20;box-shadow:0 6px 18px rgba(0,0,0,.3)}
+@media(max-width:700px){.stats{grid-template-columns:1fr 1fr}.filters{grid-template-columns:1fr 1fr}.filters input{grid-column:1/-1}.res{grid-template-columns:1fr}.when{display:flex;gap:.8rem;align-items:baseline;flex-wrap:wrap}.act{flex-direction:row;align-items:center}.act select{flex:1}}
+</style>
+</head>
+<body>
+
+<section id="login">
+ <form class="card" id="login-form">
+  <h1>EMBER &amp; PLATE</h1><p>Reservations admin. Sign in to continue.</p>
+  <label for="em">Email</label><input id="em" type="email" autocomplete="username" required>
+  <label for="pw">Password</label><input id="pw" type="password" autocomplete="current-password" required>
+  <p class="err" id="login-err" role="alert"></p>
+  <button class="btn" type="submit">Sign in</button>
+ </form>
+</section>
+
+<div id="app" hidden>
+ <header class="top"><h1>Reservations <small id="who"></small></h1>
+  <button class="btn" id="add" style="background:#e3a532;color:#261b16">+ New reservation</button>
+  <button class="btn ghost" id="export" style="color:#f8f0e4;border-color:#f8f0e4">Export CSV</button>
+  <button class="btn" id="signout">Sign out</button></header>
+ <main>
+  <div class="stats" aria-label="Summary">
+   <div class="stat"><b id="s-today">0</b><span>Bookings today</span></div>
+   <div class="stat"><b id="s-guests">0</b><span>Guests today</span></div>
+   <div class="stat"><b id="s-pending">0</b><span>Waiting for confirmation</span></div>
+   <div class="stat"><b id="s-week">0</b><span>Next 7 days</span></div>
+  </div>
+  <div class="filters">
+   <select id="f-range" aria-label="Date range"><option value="upcoming">Upcoming</option><option value="today">Today</option><option value="past">Past</option><option value="all">All dates</option></select>
+   <select id="f-status" aria-label="Status"><option value="">All statuses</option><option value="pending">Pending</option><option value="confirmed">Confirmed</option><option value="completed">Completed</option><option value="cancelled">Cancelled</option><option value="no_show">No show</option></select>
+   <input id="f-q" type="search" placeholder="Search name, phone, email or request" aria-label="Search">
+  </div>
+  <div id="list" aria-live="polite"></div>
+ </main>
+</div>
+<dialog id="dlg" aria-labelledby="dlg-t">
+ <form id="add-form" novalidate><h2 id="dlg-t">New reservation</h2>
+  <label for="a-name">Name</label><input id="a-name" required maxlength="100">
+  <div class="row2"><div><label for="a-phone">Phone</label><input id="a-phone" type="tel" required maxlength="30" placeholder="097..."></div>
+   <div><label for="a-email">Email (optional)</label><input id="a-email" type="email" maxlength="200"></div></div>
+  <div class="row2"><div><label for="a-date">Date</label><input id="a-date" type="date" required></div>
+   <div><label for="a-time">Time</label><input id="a-time" type="time" step="900" required></div></div>
+  <div class="row2"><div><label for="a-guests">Guests</label><input id="a-guests" type="number" min="1" max="200" value="2" required></div>
+   <div><label for="a-source">Booked via</label><select id="a-source"><option value="phone">Phone call</option><option value="whatsapp">WhatsApp</option><option value="walk-in">Walk-in</option></select></div></div>
+  <div class="row2"><div><label for="a-type">Type</label><select id="a-type"><option value="table">Table</option><option value="group">Group booking</option></select></div>
+   <div><label for="a-status">Status</label><select id="a-status"><option value="confirmed">Confirmed</option><option value="pending">Pending</option></select></div></div>
+  <label for="a-req">Special requests</label><textarea id="a-req" rows="2" maxlength="1000"></textarea>
+  <label for="a-notes">Staff notes</label><textarea id="a-notes" rows="2" maxlength="2000"></textarea>
+  <p class="err" id="add-err" role="alert"></p>
+  <div class="dlg-act"><button class="btn" type="submit">Save reservation</button><button class="btn ghost" type="button" id="add-cancel">Cancel</button></div>
+ </form>
+</dialog>
+<div id="toast" role="status" hidden></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="../js/config.js"></script>
+<script>
+(function () {
+  var C = window.EP_CONFIG, sb = supabase.createClient(C.SUPABASE_URL, C.SUPABASE_KEY);
+  var $ = function (s) { return document.querySelector(s); }, all = [];
+  var STATUSES = ["pending", "confirmed", "completed", "cancelled", "no_show"];
+  var LABEL = { pending: "Pending", confirmed: "Confirmed", completed: "Completed", cancelled: "Cancelled", no_show: "No show" };
+  var esc = function (s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); };
+  var todayStr = function () { var d = new Date(); d.setMinutes(d.getMinutes() - d.getTimezoneOffset()); return d.toISOString().slice(0, 10); };
+  var addDays = function (s, n) { var d = new Date(s + "T00:00:00Z"); d.setUTCDate(d.getUTCDate() + n); return d.toISOString().slice(0, 10); };
+  var waNum = function (p) { var d = String(p).replace(/\D/g, ""); return d.indexOf("260") === 0 ? d : d.charAt(0) === "0" ? "260" + d.slice(1) : d; };
+  var toastT; function toast(m) { var t = $("#toast"); t.textContent = m; t.hidden = false; clearTimeout(toastT); toastT = setTimeout(function () { t.hidden = true; }, 4000); }
+
+  // ---- auth ----
+  async function boot() {
+    var s = (await sb.auth.getSession()).data.session;
+    if (!s) { $("#login").hidden = false; $("#app").hidden = true; return; }
+    var ok = (await sb.rpc("is_admin")).data === true;
+    if (!ok) { await sb.auth.signOut(); $("#login-err").textContent = "This account is not an authorised admin."; $("#login").hidden = false; $("#app").hidden = true; return; }
+    $("#login").hidden = true; $("#app").hidden = false; $("#who").textContent = s.user.email;
+    await load(); listen();
+  }
+  $("#login-form").addEventListener("submit", async function (e) {
+    e.preventDefault(); $("#login-err").textContent = "";
+    var r = await sb.auth.signInWithPassword({ email: $("#em").value.trim(), password: $("#pw").value });
+    if (r.error) { $("#login-err").textContent = r.error.message; return; }
+    boot();
+  });
+  $("#signout").addEventListener("click", async function () { await sb.auth.signOut(); location.reload(); });
+
+  // ---- data ----
+  async function load() {
+    var r = await sb.from("reservations").select("*").order("reservation_date").order("reservation_time").limit(2000);
+    if (r.error) { toast("Could not load: " + r.error.message); return; }
+    all = r.data; render();
+  }
+  var chan; function listen() {
+    if (chan) return;
+    chan = sb.channel("res").on("postgres_changes", { event: "*", schema: "public", table: "reservations" }, function (p) {
+      if (p.eventType === "INSERT") toast("New reservation request from " + p.new.name);
+      load();
+    }).subscribe();
+  }
+
+  // ---- render ----
+  function render() {
+    var t = todayStr(), wk = addDays(t, 7), live = function (r) { return r.status !== "cancelled" && r.status !== "no_show"; };
+    var td = all.filter(function (r) { return r.reservation_date === t && live(r); });
+    $("#s-today").textContent = td.length;
+    $("#s-guests").textContent = td.reduce(function (n, r) { return n + r.guests; }, 0);
+    $("#s-pending").textContent = all.filter(function (r) { return r.status === "pending"; }).length;
+    $("#s-week").textContent = all.filter(function (r) { return r.reservation_date >= t && r.reservation_date <= wk && live(r); }).length;
+
+    var range = $("#f-range").value, st = $("#f-status").value, q = $("#f-q").value.trim().toLowerCase();
+    var rows = all.filter(function (r) {
+      if (range === "upcoming" && r.reservation_date < t) return false;
+      if (range === "today" && r.reservation_date !== t) return false;
+      if (range === "past" && r.reservation_date >= t) return false;
+      if (st && r.status !== st) return false;
+      if (q && [r.name, r.phone, r.email, r.special_requests].join(" ").toLowerCase().indexOf(q) < 0) return false;
+      return true;
+    });
+    if (range === "past" || range === "all") rows = rows.slice().reverse();
+    $("#list").innerHTML = rows.length ? rows.map(card).join("") : '<p class="empty">No reservations match.</p>';
+  }
+  function card(r) {
+    var d = new Date(r.reservation_date + "T00:00:00").toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short" });
+    var rec = new Date(r.created_at).toLocaleString("en-GB", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
+    var g = r.guests >= 13 ? "13+" : r.guests;
+    var msg = encodeURIComponent("Hi " + r.name.split(" ")[0] + ", this is Ember & Plate about your reservation for " + r.guests + " on " + d + " at " + r.reservation_time + ".");
+    var first = r.name.split(" ")[0];
+    var cm = encodeURIComponent("Hi " + first + ", this is Ember & Plate. Your reservation is confirmed for " + r.guests + (r.guests === 1 ? " guest" : " guests") + " on " + d + " at " + r.reservation_time + "." +
+      (r.special_requests ? " We've noted your request: " + r.special_requests + "." : "") + " See you then! If anything changes, just reply to this message.");
+    var cUrl = "https://wa.me/" + waNum(r.phone) + "?text=" + cm;
+    var cBtn = (r.status === "pending" || r.status === "confirmed") ? '<button class="btn wa cw" data-url="' + esc(cUrl) + '">' + (r.status === "pending" ? "Confirm on WhatsApp" : "Resend confirmation") + '</button>' : "";
+    return '<article class="res s-' + esc(r.status) + '" data-id="' + esc(r.id) + '">' +
+      '<div class="when"><b>' + esc(r.reservation_time) + '</b><span>' + esc(d) + '</span><em>' + g + (r.guests === 1 ? " guest" : " guests") + '</em></div>' +
+      '<div class="who"><h3>' + esc(r.name) + (r.booking_type === "group" ? " <small>Group</small>" : "") + '</h3>' +
+      '<p class="links"><a href="tel:' + esc(r.phone) + '">' + esc(r.phone) + '</a><a class="wa" target="_blank" rel="noopener" href="https://wa.me/' + waNum(r.phone) + '?text=' + msg + '">WhatsApp</a>' +
+      (r.email ? '<a href="mailto:' + esc(r.email) + '">' + esc(r.email) + '</a>' : "") + '</p>' +
+      (r.special_requests ? '<p class="req"><b>Request:</b> ' + esc(r.special_requests) + '</p>' : "") +
+      '<p class="meta">Received ' + esc(rec) + ' via ' + esc(r.source) + '</p>' +
+      '<details' + (r.admin_notes ? " open" : "") + '><summary>Staff notes</summary><textarea rows="2" maxlength="2000" aria-label="Staff notes for ' + esc(r.name) + '">' + esc(r.admin_notes || "") + '</textarea><button class="btn alt save">Save note</button></details></div>' +
+      '<div class="act">' + cBtn + '<select class="st" aria-label="Status for ' + esc(r.name) + '">' + STATUSES.map(function (s) { return '<option value="' + s + '"' + (s === r.status ? " selected" : "") + ">" + LABEL[s] + "</option>"; }).join("") + '</select><button class="del">Delete</button></div></article>';
+  }
+
+  // ---- actions ----
+  async function patch(id, vals, okMsg) {
+    var r = await sb.from("reservations").update(vals).eq("id", id);
+    if (r.error) toast("Failed: " + r.error.message); else { toast(okMsg); load(); }
+  }
+  $("#list").addEventListener("change", function (e) {
+    if (e.target.classList.contains("st")) patch(e.target.closest(".res").dataset.id, { status: e.target.value }, "Status updated");
+  });
+  $("#list").addEventListener("click", async function (e) {
+    var el = e.target.closest(".res"); if (!el) return; var id = el.dataset.id;
+    if (e.target.classList.contains("cw")) {
+      window.open(e.target.dataset.url, "_blank", "noopener"); // open first so the browser doesn't block it
+      if (el.classList.contains("s-pending")) patch(id, { status: "confirmed" }, "Marked as confirmed");
+      return;
+    }
+    if (e.target.classList.contains("save")) patch(id, { admin_notes: el.querySelector("textarea").value.trim() || null }, "Note saved");
+    if (e.target.classList.contains("del") && confirm("Delete this reservation permanently?")) {
+      var r = await sb.from("reservations").delete().eq("id", id);
+      if (r.error) toast("Failed: " + r.error.message); else { toast("Deleted"); load(); }
+    }
+  });
+  ["#f-range", "#f-status"].forEach(function (s) { $(s).addEventListener("change", render); });
+  $("#f-q").addEventListener("input", render);
+
+  // ---- add reservation manually ----
+  var dlg = $("#dlg");
+  $("#add").addEventListener("click", function () { $("#add-form").reset(); $("#a-date").value = todayStr();
+    var n = new Date(); n.setMinutes(n.getMinutes() < 30 ? 30 : 60, 0, 0); $("#a-time").value = ("0" + n.getHours()).slice(-2) + ":" + ("0" + n.getMinutes()).slice(-2); $("#add-err").textContent = ""; dlg.showModal(); $("#a-name").focus(); });
+  $("#add-cancel").addEventListener("click", function () { dlg.close(); });
+  $("#add-form").addEventListener("submit", async function (e) {
+    e.preventDefault();
+    var v = function (id) { return $(id).value.trim(); }, btn = e.target.querySelector("button[type=submit]"), err = $("#add-err");
+    var need = [["#a-name", "name"], ["#a-phone", "phone"], ["#a-date", "date"], ["#a-time", "time"], ["#a-guests", "guests"]].filter(function (x) { return !v(x[0]); });
+    if (need.length) { err.textContent = "Please fill in: " + need.map(function (x) { return x[1]; }).join(", ") + "."; $(need[0][0]).focus(); return; }
+    var g = parseInt(v("#a-guests"), 10);
+    if (!(g >= 1 && g <= 200)) { err.textContent = "Guests must be between 1 and 200."; return; }
+    err.textContent = ""; btn.disabled = true; btn.textContent = "Saving...";
+    try {
+      var r = await sb.from("reservations").insert({
+        name: v("#a-name"), phone: v("#a-phone"), email: v("#a-email") || null, reservation_date: v("#a-date"), reservation_time: v("#a-time").slice(0, 5),
+        guests: g, source: v("#a-source"), booking_type: v("#a-type"), status: v("#a-status"),
+        special_requests: v("#a-req") || null, admin_notes: v("#a-notes") || null });
+      if (r.error) throw new Error(r.error.message);
+      dlg.close(); toast("Reservation added"); load();
+    } catch (x) { err.textContent = "Could not save: " + (x.message || x); }
+    btn.disabled = false; btn.textContent = "Save reservation";
+  });
+
+  $("#export").addEventListener("click", function () {
+    var cols = ["created_at", "reservation_date", "reservation_time", "guests", "name", "phone", "email", "special_requests", "status", "source", "booking_type", "admin_notes"];
+    var csv = [cols.join(",")].concat(all.map(function (r) { return cols.map(function (c) { return '"' + String(r[c] == null ? "" : r[c]).replace(/"/g, '""') + '"'; }).join(","); })).join("\n");
+    var a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([csv], { type: "text/csv" })); a.download = "reservations-" + todayStr() + ".csv"; a.click();
+  });
+  boot();
+})();
+</script>
+</body>
+</html>
