@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Reservations &amp; Contact | Ember &amp; Plate, Lusaka</title>
+<meta name="description" content="Reserve a table, message Ember &amp; Plate on WhatsApp or find opening hours and directions in Lusaka.">
+<link rel="canonical" href="https://www.example.com/contact.html">
+<meta property="og:type" content="restaurant.restaurant">
+<meta property="og:title" content="Reservations &amp; Contact | Ember &amp; Plate, Lusaka">
+<meta property="og:description" content="Reserve a table, message Ember &amp; Plate on WhatsApp or find opening hours and directions in Lusaka.">
+<meta property="og:image" content="https://www.example.com/images/peri-peri-chicken.jpg">
+<meta property="og:url" content="https://www.example.com/contact.html">
+<meta name="theme-color" content="#261b16">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header" id="top">
+ <div class="wrap bar">
+  <a class="logo" href="index.html" aria-label="Ember and Plate, home">EMBER &amp; PLATE</a>
+  <nav id="nav" aria-label="Main">
+   <ul><li><a href="index.html">Home</a></li><li><a href="menu.html">Menu</a></li><li><a href="about.html">About</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="contact.html" aria-current="page">Contact</a></li></ul>
+   <a class="btn btn-wa nav-wa" data-wa href="https://wa.me/260974656749?text=Hi Ember %26 Plate, I%27d like to make a reservation.">WhatsApp Us</a>
+  </nav>
+  <a class="btn btn-primary nav-cta" href="contact.html#reserve">Reserve a Table</a>
+  <button class="menu-toggle" aria-expanded="false" aria-controls="nav" aria-label="Menu"><span></span><span></span><span></span></button>
+ </div>
+</header>
+<main id="main">
+<section class="page-head"><div class="wrap"><h1>Reserve &amp; Visit</h1><p>Book a table, message us on WhatsApp or come find us.</p></div></section>
+<section class="section" id="reserve"><div class="wrap split">
+ <div><h2>Got Plans?</h2><p class="big">Reserve a table and we'll have a seat waiting for you.</p>
+  <a class="btn btn-wa" data-wa href="https://wa.me/260974656749?text=Hi Ember %26 Plate, I%27d like to make a reservation.">WhatsApp Reservation</a>
+  <p class="fine">Or fill in the form and we'll confirm by phone, email or WhatsApp.</p></div>
+ <div class="form-card"><form id="res-form" novalidate>
+  <div class="f"><label for="name">Name</label><input id="name" name="name" autocomplete="name" required></div>
+  <div class="f"><label for="phone">Phone number</label><input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="+260 97 465 6749" required></div>
+  <div class="f"><label for="email">Email (optional)</label><input id="email" name="email" type="email" autocomplete="email"></div>
+  <div class="f2"><div class="f"><label for="date">Date</label><input id="date" name="date" type="date" required></div>
+  <div class="f"><label for="time">Time</label><select id="time" name="time" required><option value="">Choose</option><option>10:00</option><option>10:30</option><option>11:00</option><option>11:30</option><option>12:00</option><option>12:30</option><option>13:00</option><option>13:30</option><option>14:00</option><option>14:30</option><option>15:00</option><option>15:30</option><option>16:00</option><option>16:30</option><option>17:00</option><option>17:30</option><option>18:00</option><option>18:30</option><option>19:00</option><option>19:30</option><option>20:00</option><option>20:30</option><option>21:00</option><option>21:30</option></select></div></div>
+  <div class="f"><label for="guests">Number of guests</label><select id="guests" name="guests" required><option value="">Choose</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option value="13">13 or more</option></select></div>
+  <div class="f"><label for="note">Special request (optional)</label><textarea id="note" name="note" rows="3"></textarea></div>
+  <div class="hp" aria-hidden="true"><label>Leave this empty<input name="website" tabindex="-1" autocomplete="off"></label></div>
+  <p class="err" role="alert" hidden>Please fill in your name, phone, date, time and number of guests.</p>
+  <button class="btn btn-primary" type="submit">Request a Reservation</button></form>
+  <div class="success" role="status" hidden><h3>Thanks, <span id="who"></span>!</h3><p id="msg"></p><a class="btn btn-wa" id="send-wa" href="#">Also message us on WhatsApp</a></div></div>
+</div></section>
+
+<section class="section tint" id="group"><div class="wrap band-in"><div><h2>Bringing the Crew?</h2><p class="big">Planning a birthday, work dinner or group meal? Talk to our team about seating and sharing options.</p></div>
+ <a class="btn btn-primary" data-wa data-msg="Hi Ember %26 Plate, I%27d like to plan a group booking." href="https://wa.me/260974656749?text=Hi Ember %26 Plate, I%27d like to plan a group booking.">Plan a Group Booking</a></div></section>
+
+<section class="section" id="find"><div class="wrap split">
+ <div class="map" role="img" aria-label="Map placeholder for Ember and Plate, Lusaka"><span>Map placeholder<br><small>Embed Google Maps here</small></span></div>
+ <div><h2>Find Us in Lusaka.</h2><p class="big">Ember &amp; Plate<br>Lusaka, Zambia</p>
+  <h3>Opening hours</h3>
+  <dl class="hours"><dt>Monday to Thursday</dt><dd>10:00 to 22:00</dd><dt>Friday and Saturday</dt><dd>10:00 to 23:00</dd><dt>Sunday</dt><dd>10:00 to 21:00</dd></dl>
+  <p class="fine">Kitchen closes 30 minutes before closing.</p>
+  <div class="btns"><a class="btn btn-dark" href="https://www.google.com/maps/search/?api=1&amp;query=Lusaka%2C+Zambia" target="_blank" rel="noopener">Get Directions</a>
+  <a class="btn btn-wa" data-wa href="https://wa.me/260974656749?text=Hi Ember %26 Plate, I%27d like to make a reservation.">WhatsApp Us</a></div>
+  <p class="fine">Phone: +260 97 465 6749<br>Email: <a href="mailto:apexscale86@gmail.com">apexscale86@gmail.com</a></p></div>
+</div></section>
+</main>
+<footer class="site-footer">
+ <div class="wrap foot">
+  <div><a class="logo" href="index.html">EMBER &amp; PLATE</a><p class="tag-line">Good Food. Good Company. No Pretension.</p></div>
+  <nav aria-label="Footer"><h2>Explore</h2><ul><li><a href="index.html">Home</a></li><li><a href="menu.html">Menu</a></li><li><a href="about.html">About</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="contact.html">Contact</a></li></ul></nav>
+  <div><h2>Contact</h2><p>Lusaka, Zambia<br>Phone: +260 97 465 6749<br><a href="mailto:apexscale86@gmail.com">apexscale86@gmail.com</a></p></div>
+  <div><h2>Follow</h2><ul><li><a href="#">Instagram</a></li><li><a href="#">Facebook</a></li><li><a href="#">TikTok</a></li></ul></div>
+ </div>
+ <p class="wrap copy">&copy; 2026 Ember &amp; Plate. All rights reserved. Demo website: menu, prices and details are fictional.</p>
+</footer>
+<a class="wa-float" data-wa href="https://wa.me/260974656749?text=Hi Ember %26 Plate, I%27d like to make a reservation." aria-label="Chat with us on WhatsApp"><svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true"><path fill="currentColor" d="M16 3a13 13 0 0 0-11 19.9L3 29l6.300-1.900A13 13 0 1 0 16 3zm0 2.400a10.600 10.600 0 1 1-5.500 19.700l-.4-.2-3.700 1.100 1.200-3.600-.3-.4A10.600 10.600 0 0 1 16 5.400zm-3.600 5.300c-.3 0-.7.100-1 .5s-1.200 1.200-1.200 2.800 1.200 3.300 1.400 3.500c.2.200 2.400 3.800 5.900 5.200 2.900 1.100 3.500.9 4.100.8.600-.1 2-.8 2.300-1.600.3-.8.3-1.500.2-1.600l-.6-.3-2.100-1c-.3-.1-.5-.2-.7.200l-1 1.200c-.2.200-.4.200-.7.100-.3-.2-1.300-.5-2.400-1.500-.9-.8-1.500-1.800-1.700-2.100-.2-.3 0-.5.100-.6l.5-.6.300-.5c.1-.2 0-.4 0-.5l-1-2.300c-.2-.6-.5-.5-.7-.5z"/></svg></a>
+<nav class="bottom-bar" aria-label="Quick actions">
+ <a href="menu.html">Menu</a><a data-wa href="https://wa.me/260974656749?text=Hi Ember %26 Plate, I%27d like to make a reservation.">WhatsApp</a><a class="hl" href="contact.html#reserve">Reserve</a>
+</nav>
+<dialog class="lightbox" aria-label="Photo viewer"><button class="lb-close" aria-label="Close">&times;</button><button class="lb-prev" aria-label="Previous photo">&lsaquo;</button><figure><img alt=""><figcaption></figcaption></figure><button class="lb-next" aria-label="Next photo">&rsaquo;</button></dialog>
+<script src="js/config.js"></script>
+<script src="main.js" defer></script>
+</body>
+</html>
